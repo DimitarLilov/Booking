@@ -8,14 +8,17 @@
 
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\Booking.Data.Common\Booking.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\Booking.Data.Models\Booking.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\Booking.Data\Booking.Data.csproj" />
+    <ProjectReference Include="..\..\Services\Booking.Services.Mapping\Booking.Services.Mapping.csproj" />
   </ItemGroup>
 
 </Project>
