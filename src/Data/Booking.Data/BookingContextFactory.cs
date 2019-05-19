@@ -1,8 +1,8 @@
 ﻿namespace Booking.Data
 {
     using System.IO;
-    using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.EntityFrameworkCore.Diagnostics;
     using Microsoft.Extensions.Configuration;
 
