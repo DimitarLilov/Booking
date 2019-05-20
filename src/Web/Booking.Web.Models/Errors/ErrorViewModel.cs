@@ -1,4 +1,4 @@
-namespace Booking.Web.Models
+﻿namespace Booking.Web.Models.Errors
 {
     public class ErrorViewModel
     {

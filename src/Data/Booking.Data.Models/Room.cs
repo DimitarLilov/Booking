@@ -1,21 +1,23 @@
 ﻿namespace Booking.Data.Models
 {
-    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using Booking.Data.Common.Models;
 
     public class Room : BaseModel<int>
     {
+        public Room()
+        {
+            this.Periods = new HashSet<Period>();
+        }
+
         [Required]
         public string Name { get; set; }
 
         [Required]
         public int Floor { get; set; }
         
-        public decimal Price { get; set; }
 
-        public DateTime StartDate { get; set; }
-
-        public DateTime EndDate { get; set; }
+        public virtual ICollection<Period> Periods { get; set; }
     }
 }

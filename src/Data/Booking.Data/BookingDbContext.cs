@@ -17,6 +17,8 @@
 
         public DbSet<Hotel> Hotels { get; set; }
 
+        public DbSet<Period> Periods { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

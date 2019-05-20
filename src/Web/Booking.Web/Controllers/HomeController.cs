@@ -1,10 +1,10 @@
 ﻿namespace Booking.Web.Controllers
 {
     using System.Diagnostics;
-    using Booking.Web.Models;
+    using Booking.Web.Models.Errors;
     using Microsoft.AspNetCore.Mvc;
 
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public IActionResult Index()
         {
