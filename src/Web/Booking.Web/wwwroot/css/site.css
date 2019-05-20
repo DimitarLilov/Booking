@@ -105,3 +105,21 @@ body {
 .level:hover {
     background: #1F3779;
 }
+
+.caption {
+    color: black;
+    text-align: center;
+}
+
+.door {
+    margin: 20px 16px 20px 16px;
+}
+
+    .door a {
+        text-decoration: none;
+    }
+
+    .door img {
+        display: block;
+        margin: auto;
+    }

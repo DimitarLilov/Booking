@@ -20,12 +20,40 @@
             return this.View(hotels);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("Hotels/{id:int}")]
         public IActionResult Details(int id)
         {
             var hotel = this.hotelsServices.GetHotelById(id);
 
+            if(hotel == null)
+            {
+                return this.NotFound();
+            }
+
             return this.View(hotel);
+        }
+
+        [HttpGet("Hotels/{id:int}/Floors/")]
+        public IActionResult Floor(int id, string floorNumber)
+        {
+            var hotel = this.hotelsServices.GetHotelById(id);
+            if (hotel == null)
+            {
+                return this.NotFound();
+            }
+            if (floorNumber == null)
+            {
+                return this.NotFound();
+            }
+            var floor = int.Parse(floorNumber);
+            if (!this.hotelsServices.ContainsFloor(id,floor))
+            {
+                return this.NotFound();
+            }
+
+            var floorRooms = hotelsServices.GetRoomByHotelIdAndFloor(id,floor);
+
+            return this.View(floorRooms);
         }
     }
 }

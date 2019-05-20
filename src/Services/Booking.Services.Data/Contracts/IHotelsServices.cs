@@ -7,6 +7,10 @@
     {
         IEnumerable<HotelIdAndNameViewModel> GetAll();
 
-        HotelNameAndFloorsViewModel GetHotelById(int id);
+        HotelViewModel GetHotelById(int id);
+
+        bool ContainsFloor(int id, int floor);
+
+        HotelFloorRoomsViewModel GetRoomByHotelIdAndFloor(int hotelId, int floor);
     }
 }

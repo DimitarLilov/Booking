@@ -1,5 +1,5 @@
 ﻿@using Booking.Web.Models.Hotels
-@model HotelNameAndFloorsViewModel
+@model HotelViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -10,12 +10,13 @@
     <div class="roof"></div>
     @for (int i = Model.Floors; i > 0; i--)
     {
-    <div class="level">
-        <a href="#i">
-            <div class="floor"><span>@i</span></div>
-        </a>
-    </div>
+        
+        <div class="level">
+            <a asp-controller="Hotels" asp-action="Floor" asp-route-id="@Model.Id" asp-route-floorNumber="@i">
+                <div class="floor"><span>@i</span></div>
+            </a>
+        </div>
     }
-    
+
 </div>
 

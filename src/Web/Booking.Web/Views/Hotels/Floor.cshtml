@@ -1,0 +1,23 @@
+﻿@using Booking.Web.Models.Hotels
+@model HotelFloorRoomsViewModel
+@{
+    ViewData["Title"] = "Floor " + Model.Floor;
+}
+
+<h3>@Model.Name - Floor @Model.Floor - Rooms</h3>
+
+<div class="container">
+    <div class="row">
+        @foreach (var room in Model.Rooms)
+        {
+            <div class="door">
+                <a href="#">
+                    <img alt="door img" src="~/images/door.png">
+                    <div class="caption">
+                        <h5>@room.Name</h5>
+                    </div>
+                </a>
+            </div>
+        }
+        </div>
+</div>
