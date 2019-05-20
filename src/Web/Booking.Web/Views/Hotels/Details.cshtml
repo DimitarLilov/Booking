@@ -1,0 +1,21 @@
+﻿@using Booking.Web.Models.Hotels
+@model HotelNameAndFloorsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Name</h1>
+
+<div id="building">
+    <div class="roof"></div>
+    @for (int i = Model.Floors; i > 0; i--)
+    {
+    <div class="level">
+        <a href="#i">
+            <div class="floor"><span>@i</span></div>
+        </a>
+    </div>
+    }
+    
+</div>
+

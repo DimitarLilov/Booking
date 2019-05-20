@@ -59,3 +59,49 @@ body {
     margin: 20px 25px 20px 25px;
     width: 18rem;
 }
+
+#building {
+    padding: 4px;
+    width: 60%;
+}
+
+.roof {
+    height: 50px;
+    background: #ddd;
+    transform: translateX(25px) skewX(135deg);
+    padding-top: -20px;
+}
+
+.level {
+    height: 80px;
+    background: #99f;
+    margin: 3px;
+    width: 100%;
+}
+
+    .level a {
+        text-decoration: none;
+    }
+
+.floor {
+    width: 50px;
+    height: 80px;
+    background: #ccc;
+    display: flex;
+    margin-left: 100%;
+    transform: translateY(-25px) skewY(135deg);
+}
+
+    .floor span {
+        color: white;
+        margin-left: 40%;
+        margin-top: 70%
+    }
+
+.level:hover .floor {
+    background: #1F3779;
+}
+
+.level:hover {
+    background: #1F3779;
+}

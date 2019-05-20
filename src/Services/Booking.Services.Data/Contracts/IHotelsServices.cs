@@ -6,5 +6,7 @@
     public interface IHotelsServices
     {
         IEnumerable<HotelIdAndNameViewModel> GetAll();
+
+        HotelNameAndFloorsViewModel GetHotelById(int id);
     }
 }

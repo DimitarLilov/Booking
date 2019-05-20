@@ -25,5 +25,9 @@
             return hotels;
         }
 
+        public HotelNameAndFloorsViewModel GetHotelById(int id)
+        {
+            return this.hotelsRepository.All().Where(h => h.Id == id).To<HotelNameAndFloorsViewModel>().FirstOrDefault();
+        }
     }
 }
