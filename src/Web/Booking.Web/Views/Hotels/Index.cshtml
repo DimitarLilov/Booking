@@ -1,0 +1,23 @@
+﻿@using Booking.Web.Models.Hotels
+@model List<HotelIdAndNameViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Hotels</h1>
+
+<div class="container">
+    <div class="row">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            <div class="card hotel">
+                <img class="card-img-top" src="~/images/no-hotel.png" alt="hotel image">
+                <div class="card-body">
+                    <h5 class="card-title">@Model[i].Name</h5>
+                    <a class="btn btn-primary" asp-controller="Hotels" asp-action="Details" asp-route-id="@Model[i].Id">Details</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

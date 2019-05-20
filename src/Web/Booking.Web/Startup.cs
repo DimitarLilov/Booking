@@ -5,6 +5,8 @@
     using Booking.Data.Common.Repositories;
     using Booking.Data.Models;
     using Booking.Data.Repositories;
+    using Booking.Services.Data;
+    using Booking.Services.Data.Contracts;
     using Booking.Services.Mapping;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -56,6 +58,7 @@
 
             // Data repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IHotelsServices, HotelsServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

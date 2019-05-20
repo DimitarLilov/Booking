@@ -19,8 +19,14 @@
     <ProjectReference Include="..\..\Data\Booking.Data.Common\Booking.Data.Common.csproj" />
     <ProjectReference Include="..\..\Data\Booking.Data.Models\Booking.Data.Models.csproj" />
     <ProjectReference Include="..\..\Data\Booking.Data\Booking.Data.csproj" />
+    <ProjectReference Include="..\..\Services\Booking.Services.Data\Booking.Services.Data.csproj" />
     <ProjectReference Include="..\..\Services\Booking.Services.Mapping\Booking.Services.Mapping.csproj" />
     <ProjectReference Include="..\Booking.Web.Models\Booking.Web.Models.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
 </Project>
