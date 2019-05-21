@@ -21,5 +21,14 @@
         {
             return this.periodsRepository.All().Where(p => p.RoomId == id).To<PeriodViewModel>().ToList();
         }
+
+        public IEnumerable<PeriodViewModel> GetPeriodsByRoomIdFilterByMonthAndYear(int id, int month, int year)
+        {
+            return this.periodsRepository.All()
+                .Where(p => p.RoomId == id)
+                .Where(p => p.StartDate.Year == year && p.StartDate.Month == month || 
+                            p.EndDate.Year == year && p.EndDate.Month == month)
+                .To<PeriodViewModel>().ToList();
+        }
     }
 }

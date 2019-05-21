@@ -6,5 +6,6 @@
     public interface IPeriodsService
     {
         IEnumerable<PeriodViewModel> GetPeriodsByRoomId(int id);
+        IEnumerable<PeriodViewModel> GetPeriodsByRoomIdFilterByMonthAndYear(int id, int month, int year);
     }
 }

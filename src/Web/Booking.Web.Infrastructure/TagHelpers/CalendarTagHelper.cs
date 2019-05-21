@@ -29,72 +29,99 @@
 
         private string GetHtml()
         {
-            var monthStart = new DateTime(this.Year, this.Month, 1);
+            var currentMonth = new DateTime(this.Year, this.Month, 1);
 
             var html = new XDocument(
                 new XElement("div",
-                    new XElement("h4", new XAttribute("class", "text-center"), monthStart.ToString("MMMM yyyy")),
+                    new XElement("div", new XAttribute("class", "calendar_header"),
+                        this.GetPreviousMonth(currentMonth), 
+                        new XElement("h2", new XAttribute("class", "text-center"), currentMonth.ToString("MMMM yyyy")), 
+                        this.GetNextMonth(currentMonth)),
+
                     new XElement("div", new XAttribute("class", "row p-2 d-none d-lg-flex bg-secondary text-white"),
                         Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>()
                             .Select(d =>
                                 new XElement("h5", new XAttribute("class", "col-lg text-center"), d.ToString())
                              )
                     ),
-                    new XElement("div", new XAttribute("class", "row border"), GetDatesHtml())
+                    new XElement("div", new XAttribute("class", "row border"), this.GetDatesHtml(currentMonth))
                 )
             );
 
             return html.ToString();
+        }
 
-            IEnumerable<XElement> GetDatesHtml()
+        private IEnumerable<XElement> GetDatesHtml(DateTime currentMonth)
+        {
+            var startDate = currentMonth.AddDays(-(int)currentMonth.DayOfWeek);
+            var dates = Enumerable.Range(0, 42).Select(i => startDate.AddDays(i));
+
+            foreach (var d in dates)
             {
-                var startDate = monthStart.AddDays(-(int)monthStart.DayOfWeek);
-                var dates = Enumerable.Range(0, 42).Select(i => startDate.AddDays(i));
-
-                foreach (var d in dates)
+                if (d.DayOfWeek == DayOfWeek.Sunday && d != startDate)
                 {
-                    if (d.DayOfWeek == DayOfWeek.Sunday && d != startDate)
-                    {
-                        yield return new XElement("div",
-                            new XAttribute("class", "w-100"),
-                            String.Empty
-                        );
-                    }
+                    yield return new XElement("div",
+                        new XAttribute("class", "w-100"),
+                        String.Empty
+                    );
+                }
 
-                    if (IsInPeriods(d) && d.Month == monthStart.Month && !this.IsReservation(d))
-                    {
-                        yield return new XElement("a",
-                        new XAttribute("class", $"day col-lg p-2 border bg-success"),
+                if (this.IsAvailable(d) && d.Month == currentMonth.Month && !this.IsReserved(d))
+                {
+                    yield return new XElement("a",
+                    new XAttribute("class", $"day col-lg p-2 border bg-success"),
+                    d.Day,
+                    new XElement("div",
+                        new XAttribute("class", "col d-lg-none text-center"),
+                        d.DayOfWeek.ToString()
+                        )
+                    );
+                }
+                else
+                {
+                    var mutedClasses = " d-none d-lg-flex muted text-muted";
+                    var reservedClass = " bg-danger";
+                    yield return new XElement("div",
+                        new XAttribute("class",
+                        $"day col-lg p-2 border" +
+                        $"{(d.Month != currentMonth.Month ? mutedClasses : null)}" +
+                        $"{(this.IsReserved(d) ? reservedClass : null)}"),
                         d.Day,
                         new XElement("div",
                             new XAttribute("class", "col d-lg-none text-center"),
                             d.DayOfWeek.ToString()
-                        ));
-
-                    }
-                    else
-                    {
-                        var mutedClasses = " d-none d-lg-flex muted text-muted";
-                        yield return new XElement("div",
-                            new XAttribute("class", 
-                            $"day col-lg p-2 border{(d.Month != monthStart.Month ? mutedClasses : null)}{(IsReservation(d) ? " bg-danger" : null)}"),
-                            d.Day,
-                            new XElement("div",
-                                new XAttribute("class", "col d-lg-none text-center"),
-                                d.DayOfWeek.ToString()
-                            )
-                        );
-                    }
+                        )
+                    );
                 }
             }
         }
 
-        private bool IsReservation(DateTime date)
+        private XElement GetNextMonth(DateTime currentMonth)
+        {
+            var nextMonth = currentMonth.AddMonths(1);
+
+            return new XElement("a",
+                new XAttribute("href", $"?year={nextMonth.Year}&month={nextMonth.Month}"),
+                new XAttribute("class", "switch-month"),
+                ">");
+        }
+
+        private XElement GetPreviousMonth(DateTime currentMonth)
+        {
+            var previusMonth = currentMonth.AddMonths(-1);
+
+            return new XElement("a",
+                new XAttribute("href", $"?year={previusMonth.Year}&month={previusMonth.Month}"),
+                new XAttribute("class", "switch-month"),
+                "<");
+        }
+
+        private bool IsReserved(DateTime date)
         {
             return this.Reservations.Any(r => r.ReservationDate.Date.Equals(date.Date));
         }
 
-        private bool IsInPeriods(DateTime date)
+        private bool IsAvailable(DateTime date)
         {
             return this.Periods.Any(p => date.Date >= p.StartDate.Date && date.Date <= p.EndDate.Date);
         }

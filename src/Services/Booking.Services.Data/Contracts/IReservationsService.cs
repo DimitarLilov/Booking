@@ -5,6 +5,7 @@ namespace Booking.Services.Data.Contracts
 {
     public interface IReservationsService
     {
-        IEnumerable<ReservaionDateViewModel> GetReservationByRoomId(int id);
+        IEnumerable<ReservaionDateViewModel> GetReservationsByRoomId(int id);
+        IEnumerable<ReservaionDateViewModel> GetReservationsByRoomIdFilterByMonthAndYear(int id, int month, int year);
     }
 }

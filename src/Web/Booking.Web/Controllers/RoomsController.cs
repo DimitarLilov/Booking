@@ -45,8 +45,9 @@
             };
 
             viewModel.Room = this.roomsServices.GetRoomByRoomId(id);
-            viewModel.Periods = this.periodsServices.GetPeriodsByRoomId(id);
-            viewModel.Reservations = this.reservationsServices.GetReservationByRoomId(id);
+            //viewModel.Periods = this.periodsServices.GetPeriodsByRoomId(id);
+            viewModel.Periods = this.periodsServices.GetPeriodsByRoomIdFilterByMonthAndYear(id, query.Month, query.Year);
+            viewModel.Reservations = this.reservationsServices.GetReservationsByRoomIdFilterByMonthAndYear(id, query.Month, query.Year);
             viewModel.Hotel = this.hotelsService.GetHotelByRoomId(id);
 
             return this.View(viewModel);
