@@ -129,7 +129,22 @@ body {
     height: 110px;
     text-decoration: none;
 }
+.muted {
+    background-color: #f5f5f5;
+}
 
 .calendar a {
     text-decoration: none;
+    cursor: pointer;
 }
+
+.hotel a{
+    color: black;
+    text-decoration: none;
+}
+
+h3 a {
+    color: black;
+    text-decoration: none;
+}
+

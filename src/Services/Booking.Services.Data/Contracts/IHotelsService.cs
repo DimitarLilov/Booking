@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using Booking.Web.Models.Hotels;
 
-    public interface IHotelsServices
+    public interface IHotelsService
     {
         IEnumerable<HotelIdAndNameViewModel> GetAll();
 
@@ -12,5 +12,7 @@
         bool ContainsFloor(int id, int floor);
 
         HotelFloorRoomsViewModel GetRoomByHotelIdAndFloor(int hotelId, int floor);
+
+        HotelIdAndNameViewModel GetHotelByRoomId(int id);
     }
 }

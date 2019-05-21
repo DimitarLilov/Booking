@@ -54,11 +54,14 @@
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddAutoMapper();
+            //services.AddAutoMapper();
 
             // Data repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            services.AddScoped<IHotelsServices, HotelsServices>();
+            services.AddScoped<IHotelsService, HotelsService>();
+            services.AddScoped<IRoomsService, RoomsService>();
+            services.AddScoped<IPeriodsService, PeriodsService>();
+            services.AddScoped<IReservationsService, ReservationsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -5,9 +5,9 @@
 
     public class HotelsController : BaseController
     {
-        private readonly IHotelsServices hotelsServices;
+        private readonly IHotelsService hotelsServices;
 
-        public HotelsController(IHotelsServices hotelsServices)
+        public HotelsController(IHotelsService hotelsServices)
         {
             this.hotelsServices = hotelsServices;
         }

@@ -1,73 +1,14 @@
-﻿
+﻿@using Booking.Web.Models.Rooms
+@model RoomDetailsViewModel
+
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
-<calendar month="5" year="2019" />
+<h3>
+    <a asp-controller="Hotels" asp-action="Details" asp-route-id="@Model.Hotel.Id">@Model.Hotel.Name</a> - 
+    <a asp-controller="Hotels" asp-action="Floor" asp-route-id="@Model.Hotel.Id" asp-route-floorNumber="@Model.Room.Floor"> @Model.Room.Floor Floor</a> -
+        Room @Model.Room.Name
+</h3>
 
-
-@*<div class="calendar container">
-        <header>
-            <h4 class="text-center">May 2019</h4>
-            <div class="row p-2 bg-secondary text-white">
-                <h5 class="col-lg text-center">Sunday</h5>
-                <h5 class="col-lg text-center">Monday</h5>
-                <h5 class="col-lg text-center">Tuesday</h5>
-                <h5 class="col-lg text-center">Wednesday</h5>
-                <h5 class="col-lg text-center">Thursday</h5>
-                <h5 class="col-lg text-center">Friday</h5>
-                <h5 class="col-lg text-center">Saturday</h5>
-            </div>
-        </header>
-        <div class="row border">
-            <div class="day col-lg p-2 border bg-light text-muted">28</div>
-            <div class="day col-lg p-2 border bg-light text-muted">29</div>
-            <div class="day col-lg p-2 border bg-light text-muted">30</div>
-            <div class="day col-lg p-2 border"> 1 </div>
-            <div class="day col-lg p-2 border"> 2 </div>
-            <div class="day col-lg p-2 border"> 3 </div>
-            <div class="day col-lg p-2 border"> 4 </div>
-            <div class="w-100"></div>
-            <div class="day col-lg p-2 border bg-success"> 5 </div>
-            <div class="day col-lg p-2 border bg-success"> 6 </div>
-            <div class="day col-lg p-2 border bg-success"> 7 </div>
-            <div class="day col-lg p-2 border bg-success"> 8 </div>
-            <div class="day col-lg p-2 border bg-success"> 9 </div>
-            <div class="day col-lg p-2 border bg-danger"> 10 </div>
-            <div class="day col-lg p-2 border bg-success"> 11 </div>
-            <div class="w-100"></div>
-            <div class="day col-lg p-2 border bg-success"> 12 </div>
-            <div class="day col-lg p-2 border bg-danger"> 13 </div>
-            <div class="day col-lg p-2 border bg-success"> 14 </div>
-            <div class="day col-lg p-2 border bg-success"> 15 </div>
-            <div class="day col-lg p-2 border bg-success"> 16 </div>
-            <div class="day col-lg p-2 border bg-success"> 17 </div>
-            <div class="day col-lg p-2 border bg-success"> 18 </div>
-            <div class="w-100"></div>
-            <div class="day col-lg p-2 border bg-success"> 19 </div>
-            <div class="day col-lg p-2 border bg-success"> 20 </div>
-            <div class="day col-lg p-2 border bg-success"> 21 </div>
-            <div class="day col-lg p-2 border bg-success"> 22 </div>
-            <div class="day col-lg p-2 border bg-danger"> 23 </div>
-            <div class="day col-lg p-2 border bg-success"> 24 </div>
-            <div class="day col-lg p-2 border bg-success"> 25 </div>
-            <div class="w-100"></div>
-            <a href="#" class="day col-lg p-2 text-white border bg-success"> 26 </a>
-            <a href="#" class="day col-lg p-2 text-white border bg-success"> 27 </a>
-            <a href="#" class="day col-lg p-2 text-white border bg-success"> 28 </a>
-            <a href="#" class="day col-lg p-2 text-white border bg-success"> 29 </a>
-            <a href="#" class="day col-lg p-2 text-white border bg-success"> 30 </a>
-            <a href="#" class="day col-lg p-2 text-white border bg-success"> 31 </a>
-            <div class="day col-lg p-2 border bg-light text-muted">1</div>
-            <div class="w-100"></div>
-            <div class="day col-lg p-2 border bg-light text-muted">2</div>
-            <div class="day col-lg p-2 border bg-light text-muted">3</div>
-            <div class="day col-lg p-2 border bg-light text-muted">4</div>
-            <div class="day col-lg p-2 border bg-light text-muted">5</div>
-            <div class="day col-lg p-2 border bg-light text-muted">6</div>
-            <div class="day col-lg p-2 border bg-light text-muted">7</div>
-            <div class="day col-lg p-2 border bg-light text-muted">8</div>
-            <div class="w-100"></div>
-        </div>
-    </div>*@
+<calendar month="@Model.Month" year="@Model.Year" periods="@Model.Periods" reservations="@Model.Reservations"/>

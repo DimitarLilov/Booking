@@ -7,13 +7,12 @@
     using Booking.Services.Data.Contracts;
     using Booking.Services.Mapping;
     using Booking.Web.Models.Hotels;
-    using Booking.Web.Models.Rooms;
 
-    public class HotelsServices : IHotelsServices
+    public class HotelsService : IHotelsService
     {
         private readonly IRepository<Hotel> hotelsRepository;
 
-        public HotelsServices(IRepository<Hotel> hotelsRepository)
+        public HotelsService(IRepository<Hotel> hotelsRepository)
         {
             this.hotelsRepository = hotelsRepository;
         }
@@ -39,6 +38,11 @@
         public HotelViewModel GetHotelById(int id)
         {
             return this.hotelsRepository.All().Where(h => h.Id == id).To<HotelViewModel>().FirstOrDefault();
+        }
+
+        public HotelIdAndNameViewModel GetHotelByRoomId(int id)
+        {
+            return this.hotelsRepository.All().Where(h => h.Rooms.Any(r => r.Id == id)).To<HotelIdAndNameViewModel>().FirstOrDefault();
         }
 
         public HotelFloorRoomsViewModel GetRoomByHotelIdAndFloor(int hotelId, int floor)
