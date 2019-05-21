@@ -33,25 +33,20 @@
             return this.View(hotel);
         }
 
-        [HttpGet("Hotels/{id:int}/Floors/")]
-        public IActionResult Floor(int id, string floorNumber)
+        [HttpGet("Hotels/{id:int}/Floors/{floorNumber:int}")]
+        public IActionResult Floor(int id, int floorNumber)
         {
             var hotel = this.hotelsServices.GetHotelById(id);
             if (hotel == null)
             {
                 return this.NotFound();
             }
-            if (floorNumber == null)
-            {
-                return this.NotFound();
-            }
-            var floor = int.Parse(floorNumber);
-            if (!this.hotelsServices.ContainsFloor(id,floor))
+            if (!this.hotelsServices.ContainsFloor(id, floorNumber))
             {
                 return this.NotFound();
             }
 
-            var floorRooms = hotelsServices.GetRoomByHotelIdAndFloor(id,floor);
+            var floorRooms = hotelsServices.GetRoomByHotelIdAndFloor(id, floorNumber);
 
             return this.View(floorRooms);
         }

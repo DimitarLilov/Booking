@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Booking.Data.Migrations
+﻿namespace Booking.Data.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Metadata;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class ADDED_DTO_MODELS : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

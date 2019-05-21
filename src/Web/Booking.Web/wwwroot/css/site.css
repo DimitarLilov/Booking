@@ -123,3 +123,13 @@ body {
         display: block;
         margin: auto;
     }
+
+
+.day {
+    height: 110px;
+    text-decoration: none;
+}
+
+.calendar a {
+    text-decoration: none;
+}

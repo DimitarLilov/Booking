@@ -4,14 +4,15 @@
     ViewData["Title"] = "Floor " + Model.Floor;
 }
 
-<h3>@Model.Name - Floor @Model.Floor - Rooms</h3>
+<h3><a asp-controller="Hotels" asp-action="Details" asp-route-id="@Model.Id">@Model.Name</a> - Floor @Model.Floor - Rooms</h3>
 
 <div class="container">
     <div class="row">
         @foreach (var room in Model.Rooms)
         {
             <div class="door">
-                <a href="#">
+                
+                <a asp-controller="Rooms" asp-action="Details" asp-route-id="@room.Id">
                     <img alt="door img" src="~/images/door.png">
                     <div class="caption">
                         <h5>@room.Name</h5>

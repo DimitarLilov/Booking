@@ -10,6 +10,5 @@
         public int Floor { get; set; }
 
         public string Name { get; set; }
-
     }
 }
