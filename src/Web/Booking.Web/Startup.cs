@@ -1,10 +1,11 @@
 ﻿namespace Booking.Web
 {
-    using AutoMapper;
+    using Booking.Common;
     using Booking.Data;
     using Booking.Data.Common.Repositories;
     using Booking.Data.Models;
     using Booking.Data.Repositories;
+    using Booking.Data.Seeding;
     using Booking.Services.Data;
     using Booking.Services.Data.Contracts;
     using Booking.Services.Mapping;
@@ -12,10 +13,15 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.UI;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using System;
+    using System.Threading.Tasks;
 
     public class Startup
     {
@@ -42,7 +48,7 @@
             services.AddDbContext<BookingDbContext>(
                 options => options.UseSqlServer(this.Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDefaultIdentity<BookingUser>(
+            services.AddIdentity<BookingUser, IdentityRole>(
                     options =>
                     {
                         options.Password.RequiredLength = 6;
@@ -50,7 +56,9 @@
                         options.Password.RequireNonAlphanumeric = false;
                         options.Password.RequireUppercase = false;
                         options.Password.RequireDigit = false;
-                    }).AddEntityFrameworkStores<BookingDbContext>();
+                    }).AddEntityFrameworkStores<BookingDbContext>()
+                    .AddDefaultTokenProviders()
+                    .AddDefaultUI(UIFramework.Bootstrap4);
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -65,6 +73,20 @@
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<BookingDbContext>();
+
+                if (env.IsDevelopment())
+                {
+                    dbContext.Database.Migrate();
+                }
+
+                new BookingDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -84,6 +106,10 @@
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(
+                  name: "areas",
+                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                );
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
