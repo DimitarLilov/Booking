@@ -9,6 +9,7 @@
     using Booking.Services.Data.Contracts;
     using Booking.Services.Mapping;
     using Booking.Web.Models.Reservations;
+    using Booking.Web.Models.Rooms;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -32,7 +33,8 @@
         public void ConfigureServices(IServiceCollection services)
         {
             AutoMapperConfig.RegisterMappings(
-                typeof(ReservationRoomBindingModel).Assembly);
+                typeof(ReservationRoomBindingModel).Assembly,
+                typeof(CreateRoomBindingModel).Assembly);
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -71,7 +73,6 @@
         {
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
-
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<BookingDbContext>();
 
                 if (env.IsDevelopment())
@@ -80,7 +81,6 @@
                 }
 
                 new BookingDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
-
             }
 
             if (env.IsDevelopment())
@@ -103,9 +103,9 @@
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                  name: "areas",
-                  template: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-                );
+                    name: "areas",
+                    template: "{area:exists}/{controller=Categories}/{action=Index}/{id?}");
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");

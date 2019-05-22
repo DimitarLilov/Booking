@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Booking.Data.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.Extensions.Logging;
-
-namespace Booking.Web.Areas.Identity.Pages.Account.Manage
+﻿namespace Booking.Web.Areas.Identity.Pages.Account.Manage
 {
+    using System.Threading.Tasks;
+    using Booking.Data.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.RazorPages;
+    using Microsoft.Extensions.Logging;
+
     public class ResetAuthenticatorModel : PageModel
     {
         UserManager<BookingUser> _userManager;

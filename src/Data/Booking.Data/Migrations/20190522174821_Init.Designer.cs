@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Booking.Data.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    [Migration("20190519173449_ADDED_DTO_MODELS")]
-    partial class ADDED_DTO_MODELS
+    [Migration("20190522174821_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,9 +36,11 @@ namespace Booking.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -91,6 +93,27 @@ namespace Booking.Data.Migrations
                     b.ToTable("Hotels");
                 });
 
+            modelBuilder.Entity("Booking.Data.Models.Period", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<decimal>("Price");
+
+                    b.Property<int>("RoomId");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RoomId");
+
+                    b.ToTable("Periods");
+                });
+
             modelBuilder.Entity("Booking.Data.Models.Reservation", b =>
                 {
                     b.Property<int>("Id")
@@ -119,18 +142,12 @@ namespace Booking.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("EndDate");
-
                     b.Property<int>("Floor");
 
-                    b.Property<int?>("HotelId");
+                    b.Property<int>("HotelId");
 
                     b.Property<string>("Name")
                         .IsRequired();
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<DateTime>("StartDate");
 
                     b.HasKey("Id");
 
@@ -249,6 +266,14 @@ namespace Booking.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Booking.Data.Models.Period", b =>
+                {
+                    b.HasOne("Booking.Data.Models.Room", "Room")
+                        .WithMany("Periods")
+                        .HasForeignKey("RoomId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Booking.Data.Models.Reservation", b =>
                 {
                     b.HasOne("Booking.Data.Models.Room", "Room")
@@ -264,9 +289,10 @@ namespace Booking.Data.Migrations
 
             modelBuilder.Entity("Booking.Data.Models.Room", b =>
                 {
-                    b.HasOne("Booking.Data.Models.Hotel")
+                    b.HasOne("Booking.Data.Models.Hotel", "Hotel")
                         .WithMany("Rooms")
-                        .HasForeignKey("HotelId");
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

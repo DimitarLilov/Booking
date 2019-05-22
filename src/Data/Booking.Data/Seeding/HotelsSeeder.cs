@@ -16,7 +16,7 @@
                 return;
             }
 
-            var HotelHebar = new Hotel
+            var hotelHebar = new Hotel
             {
                 Name = "Hebar",
                 Floors = 5,
@@ -100,7 +100,7 @@
                 }
             };
 
-            await dbContext.Hotels.AddAsync(HotelHebar);
+            await dbContext.Hotels.AddAsync(hotelHebar);
         }
     }
 }

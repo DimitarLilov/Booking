@@ -2,11 +2,14 @@
 {
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading.Tasks;
+    using AutoMapper;
     using Booking.Data.Common.Repositories;
     using Booking.Data.Models;
     using Booking.Services.Data.Contracts;
     using Booking.Services.Mapping;
     using Booking.Web.Models.Hotels;
+    using Booking.Web.Models.Rooms;
 
     public class HotelsService : IHotelsService
     {
@@ -36,6 +39,11 @@
             return hotels;
         }
 
+        public IEnumerable<HotelViewModel> GetAllHotelsInfo()
+        {
+            return this.hotelsRepository.All().To<HotelViewModel>().ToList();
+        }
+
         public HotelViewModel GetHotelById(int id)
         {
             return this.hotelsRepository.All().Where(h => h.Id == id).To<HotelViewModel>().FirstOrDefault();
@@ -44,6 +52,11 @@
         public HotelIdAndNameViewModel GetHotelByRoomId(int id)
         {
             return this.hotelsRepository.All().Where(h => h.Rooms.Any(r => r.Id == id)).To<HotelIdAndNameViewModel>().FirstOrDefault();
+        }
+
+        public HotelDetailsViewModel GetHotelDetails(int id)
+        {
+            return this.hotelsRepository.All().Where(h => h.Id == id).To<HotelDetailsViewModel>().FirstOrDefault();
         }
 
         public HotelFloorRoomsViewModel GetRoomByHotelIdAndFloor(int hotelId, int floor)

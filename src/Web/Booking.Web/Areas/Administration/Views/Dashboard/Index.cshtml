@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Dashboard</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card-counter bg-primary">
+                <span class="count-name text-center"><a asp-action="Index" asp-controller="Hotels" asp-area="Administration">Hotels</a></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-counter bg-danger">
+                <span class="count-name text-center"><a asp-action="Index" asp-controller="Rooms" asp-area="Administration">Rooms</a></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-counter bg-success">
+                <span class="count-name text-center"><a asp-action="Index" asp-controller="Periods" asp-area="Administration">Periods</a></span>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card-counter bg-info">
+                <span class="count-name text-center"><a asp-action="Index" asp-controller="Reservation" asp-area="Administration">Reservation</a></span>
+            </div>
+        </div>
+    </div>
+</div>

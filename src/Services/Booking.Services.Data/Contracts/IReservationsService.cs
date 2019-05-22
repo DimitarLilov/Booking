@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
-    using Booking.Data.Models;
     using Booking.Web.Models.Reservations;
 
     public interface IReservationsService

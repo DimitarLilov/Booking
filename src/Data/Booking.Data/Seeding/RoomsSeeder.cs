@@ -3,7 +3,6 @@
     using System;
     using System.Linq;
     using System.Threading.Tasks;
-    using Booking.Data.Models;
     using Booking.Data.Seeding.Contracts;
 
     internal class RoomsSeeder : ISeeder

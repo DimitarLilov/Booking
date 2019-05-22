@@ -4,16 +4,14 @@ using Booking.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Booking.Data.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    [Migration("20190521074220_Add_Period_RoomId")]
-    partial class Add_Period_RoomId
+    partial class BookingDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,9 +34,11 @@ namespace Booking.Data.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .IsRequired();
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .IsRequired();
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -142,7 +142,7 @@ namespace Booking.Data.Migrations
 
                     b.Property<int>("Floor");
 
-                    b.Property<int?>("HotelId");
+                    b.Property<int>("HotelId");
 
                     b.Property<string>("Name")
                         .IsRequired();
@@ -287,9 +287,10 @@ namespace Booking.Data.Migrations
 
             modelBuilder.Entity("Booking.Data.Models.Room", b =>
                 {
-                    b.HasOne("Booking.Data.Models.Hotel")
+                    b.HasOne("Booking.Data.Models.Hotel", "Hotel")
                         .WithMany("Rooms")
-                        .HasForeignKey("HotelId");
+                        .HasForeignKey("HotelId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
