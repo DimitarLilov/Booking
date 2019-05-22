@@ -1,6 +1,5 @@
 ﻿namespace Booking.Web
 {
-    using Booking.Common;
     using Booking.Data;
     using Booking.Data.Common.Repositories;
     using Booking.Data.Models;
@@ -19,9 +18,6 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
-    using System;
-    using System.Threading.Tasks;
 
     public class Startup
     {
