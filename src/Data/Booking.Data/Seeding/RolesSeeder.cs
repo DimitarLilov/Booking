@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
 
     using Booking.Common;
-    using Booking.Data.Models;
     using Booking.Data.Seeding.Contracts;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
