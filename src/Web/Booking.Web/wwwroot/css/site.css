@@ -150,6 +150,7 @@ h3 a {
 .calendar a {
     text-decoration: none;
     cursor: pointer;
+    color: black;
 }
 .calendar_header:after {
     content: ' ';
@@ -187,4 +188,9 @@ h3 a {
 
 .calendar_header h2 {
     color: #409EDD;
+}
+
+.isDisabled {
+    opacity: 0.8;
+    pointer-events: none;
 }

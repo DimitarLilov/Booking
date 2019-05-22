@@ -25,7 +25,7 @@
         {
             var hotel = this.hotelsServices.GetHotelById(id);
 
-            if(hotel == null)
+            if (hotel == null)
             {
                 return this.NotFound();
             }
@@ -41,12 +41,13 @@
             {
                 return this.NotFound();
             }
+
             if (!this.hotelsServices.ContainsFloor(id, floorNumber))
             {
                 return this.NotFound();
             }
 
-            var floorRooms = hotelsServices.GetRoomByHotelIdAndFloor(id, floorNumber);
+            var floorRooms = this.hotelsServices.GetRoomByHotelIdAndFloor(id, floorNumber);
 
             return this.View(floorRooms);
         }

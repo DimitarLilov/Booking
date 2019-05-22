@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Xml.Linq;
+    using Booking.Common;
     using Booking.Web.Models.Periods;
     using Booking.Web.Models.Reservations;
     using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -14,6 +15,8 @@
         public int Month { get; set; }
 
         public int Year { get; set; }
+
+        public int RoomId { get; set; }
 
         public IEnumerable<PeriodViewModel> Periods { get; set; }
 
@@ -32,23 +35,37 @@
             var currentMonth = new DateTime(this.Year, this.Month, 1);
 
             var html = new XDocument(
-                new XElement("div",
-                    new XElement("div", new XAttribute("class", "calendar_header"),
-                        this.GetPreviousMonth(currentMonth), 
-                        new XElement("h2", new XAttribute("class", "text-center"), currentMonth.ToString("MMMM yyyy")), 
-                        this.GetNextMonth(currentMonth)),
-
-                    new XElement("div", new XAttribute("class", "row p-2 d-none d-lg-flex bg-secondary text-white"),
-                        Enum.GetValues(typeof(DayOfWeek)).Cast<DayOfWeek>()
-                            .Select(d =>
-                                new XElement("h5", new XAttribute("class", "col-lg text-center"), d.ToString())
-                             )
-                    ),
-                    new XElement("div", new XAttribute("class", "row border"), this.GetDatesHtml(currentMonth))
-                )
-            );
+                new XElement(
+                    "div",
+                    this.GetCalendarHeaderHtml(currentMonth),
+                    this.GetDayOfWeekHtml(),
+                    new XElement("div", new XAttribute("class", "row border"), this.GetDatesHtml(currentMonth))));
 
             return html.ToString();
+        }
+
+        private XElement GetDayOfWeekHtml()
+        {
+            return new XElement(
+                "div",
+                new XAttribute("class", "row p-2 d-none d-lg-flex bg-secondary text-white"),
+                Enum.GetValues(typeof(DayOfWeek))
+                    .Cast<DayOfWeek>()
+                    .Select(d => new XElement("h5", new XAttribute("class", "col-lg text-center"), d.ToString())));
+        }
+
+        private XElement GetCalendarHeaderHtml(DateTime currentMonth)
+        {
+            return new XElement(
+                "div",
+                new XAttribute(
+                    "class", "calendar_header"),
+                this.GetPreviousMonth(currentMonth),
+                new XElement(
+                    "h2",
+                    new XAttribute("class", "text-center"),
+                    currentMonth.ToString("MMMM yyyy")),
+                this.GetNextMonth(currentMonth));
         }
 
         private IEnumerable<XElement> GetDatesHtml(DateTime currentMonth)
@@ -60,47 +77,59 @@
             {
                 if (d.DayOfWeek == DayOfWeek.Sunday && d != startDate)
                 {
-                    yield return new XElement("div",
+                    yield return new XElement(
+                        "div",
                         new XAttribute("class", "w-100"),
-                        String.Empty
-                    );
+                        string.Empty);
                 }
 
                 if (this.IsAvailable(d) && d.Month == currentMonth.Month && !this.IsReserved(d))
                 {
-                    yield return new XElement("a",
-                    new XAttribute("class", $"day col-lg p-2 border bg-success"),
-                    d.Day,
-                    new XElement("div",
-                        new XAttribute("class", "col d-lg-none text-center"),
-                        d.DayOfWeek.ToString()
-                        )
-                    );
+                    yield return new XElement(
+                        "a",
+                        this.GetAvaiavleClasses(d),
+                        new XAttribute("href", string.Format(GlobalConstants.ReservationPath, this.RoomId, d.ToString(GlobalConstants.ResevationDateFormat))),
+                        d.Day,
+                        new XElement(
+                            "div",
+                            new XAttribute(
+                                "class", "col d-lg-none text-center"),
+                            d.DayOfWeek.ToString()));
                 }
                 else
                 {
                     var mutedClasses = " d-none d-lg-flex muted text-muted";
                     var reservedClass = " bg-danger";
-                    yield return new XElement("div",
-                        new XAttribute("class",
-                        $"day col-lg p-2 border" +
-                        $"{(d.Month != currentMonth.Month ? mutedClasses : null)}" +
-                        $"{(this.IsReserved(d) ? reservedClass : null)}"),
+
+                    yield return new XElement(
+                        "div",
+                        new XAttribute("class", $"day col-lg p-2 border{(d.Month != currentMonth.Month ? mutedClasses : null)}{(this.IsReserved(d) ? reservedClass : null)}"),
                         d.Day,
-                        new XElement("div",
-                            new XAttribute("class", "col d-lg-none text-center"),
-                            d.DayOfWeek.ToString()
-                        )
-                    );
+                        new XElement(
+                            "div",
+                            new XAttribute(
+                                "class", "col d-lg-none text-center"),
+                            d.DayOfWeek.ToString()));
                 }
             }
+        }
+
+        private XAttribute GetAvaiavleClasses(DateTime d)
+        {
+            if (d < DateTime.Now)
+            {
+                return new XAttribute("class", $"day col-lg p-2 isDisabled border bg-success");
+            }
+
+            return new XAttribute("class", $"day col-lg p-2 border bg-success");
         }
 
         private XElement GetNextMonth(DateTime currentMonth)
         {
             var nextMonth = currentMonth.AddMonths(1);
 
-            return new XElement("a",
+            return new XElement(
+                "a",
                 new XAttribute("href", $"?year={nextMonth.Year}&month={nextMonth.Month}"),
                 new XAttribute("class", "switch-month"),
                 ">");
@@ -110,7 +139,8 @@
         {
             var previusMonth = currentMonth.AddMonths(-1);
 
-            return new XElement("a",
+            return new XElement(
+                "a",
                 new XAttribute("href", $"?year={previusMonth.Year}&month={previusMonth.Month}"),
                 new XAttribute("class", "switch-month"),
                 "<");

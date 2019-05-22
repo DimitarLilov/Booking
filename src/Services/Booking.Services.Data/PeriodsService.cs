@@ -1,5 +1,6 @@
 ﻿namespace Booking.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Booking.Data.Common.Repositories;
@@ -26,9 +27,21 @@
         {
             return this.periodsRepository.All()
                 .Where(p => p.RoomId == id)
-                .Where(p => p.StartDate.Year == year && p.StartDate.Month == month || 
-                            p.EndDate.Year == year && p.EndDate.Month == month)
+                .Where(p => (p.StartDate.Year == year && p.StartDate.Month == month) || 
+                            (p.EndDate.Year == year && p.EndDate.Month == month))
                 .To<PeriodViewModel>().ToList();
+        }
+
+        public decimal GetPriceByPeriod(DateTime date)
+        {
+            return this.periodsRepository.All().FirstOrDefault(p => date >= p.StartDate.Date && date.Date <= p.EndDate).Price;
+        }
+
+        public bool RoomIsAvailable(int roomId, DateTime date)
+        {
+            return this.periodsRepository.All()
+                .Where(p => p.RoomId == roomId)
+                .Any(p => date.Date >= p.StartDate.Date && date.Date <= p.EndDate.Date);
         }
     }
 }

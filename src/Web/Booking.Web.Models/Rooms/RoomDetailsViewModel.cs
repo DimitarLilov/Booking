@@ -7,7 +7,7 @@
 
     public class RoomDetailsViewModel
     {
-        public RoomIdAndNameViewModel Room { get; set; }
+        public RoomViewModel Room { get; set; }
 
         public HotelIdAndNameViewModel Hotel { get; set; }
 

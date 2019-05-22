@@ -13,6 +13,6 @@
 
         public int Floor { get; set; }
 
-        public IEnumerable<RoomIdAndNameViewModel> Rooms { get; set; }
+        public IEnumerable<RoomViewModel> Rooms { get; set; }
     }
 }

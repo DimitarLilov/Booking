@@ -17,7 +17,6 @@
         [Required]
         public int Floor { get; set; }
         
-
         public virtual ICollection<Period> Periods { get; set; }
     }
 }

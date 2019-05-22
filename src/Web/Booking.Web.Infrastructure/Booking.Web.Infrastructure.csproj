@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Booking.Common\Booking.Common.csproj" />
     <ProjectReference Include="..\Booking.Web.Models\Booking.Web.Models.csproj" />
   </ItemGroup>
 

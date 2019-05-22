@@ -1,0 +1,25 @@
+﻿@using Booking.Web.Models.Reservations
+@model ReservationViewModel
+@{
+    ViewData["Title"] = "Reservation";
+}
+
+<h1>Reservation</h1>
+
+<div class="container-fluid">
+    <hr />
+    <form method="post" asp-action="Reservation" asp-controller="Rooms">
+        <div class="col text-center">
+            <h2>Hotel: <a asp-action="Details" asp-controller="Hotels" asp-route-id="@Model.Hotel.Id">@Model.Hotel.Name</a></h2>
+            <h2>Floor: @Model.Room.Floor</h2>
+            <h2>Room: <a asp-action="Details" asp-controller="Rooms" asp-route-id="@Model.Room.Id">@Model.Room.Name</a></h2>
+            <h2>Date: @Model.Date.ToShortDateString()</h2>
+            <h2>Price @Model.Price</h2>
+            <input name="RoomId" type="hidden" value="@Model.Room.Id">
+            <input name="ReservationDate" type="hidden" value="@Model.Date">
+            <button type="submit" class="btn btn-success">Pay Now</button>
+        </div>
+    </form>
+</div>
+
+

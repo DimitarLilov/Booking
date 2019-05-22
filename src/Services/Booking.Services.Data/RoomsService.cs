@@ -16,9 +16,9 @@
             this.roomsRepository = roomsRepository;
         }
 
-        public RoomIdAndNameViewModel GetRoomByRoomId(int id)
+        public RoomViewModel GetRoomByRoomId(int id)
         {
-            return this.roomsRepository.All().Where(r => r.Id == id).To<RoomIdAndNameViewModel>().FirstOrDefault();
+            return this.roomsRepository.All().Where(r => r.Id == id).To<RoomViewModel>().FirstOrDefault();
         }
     }
 }

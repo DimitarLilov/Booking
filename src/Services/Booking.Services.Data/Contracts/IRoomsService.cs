@@ -1,10 +1,9 @@
-﻿using Booking.Web.Models.Hotels;
-using Booking.Web.Models.Rooms;
-
-namespace Booking.Services.Data.Contracts
+﻿namespace Booking.Services.Data.Contracts
 {
+    using Booking.Web.Models.Rooms;
+
     public interface IRoomsService
     {
-        RoomIdAndNameViewModel GetRoomByRoomId(int id);
+        RoomViewModel GetRoomByRoomId(int id);
     }
 }

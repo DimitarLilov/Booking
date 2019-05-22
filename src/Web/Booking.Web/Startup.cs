@@ -8,6 +8,7 @@
     using Booking.Services.Data;
     using Booking.Services.Data.Contracts;
     using Booking.Services.Mapping;
+    using Booking.Web.Models.Reservations;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http;
@@ -29,8 +30,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             AutoMapperConfig.RegisterMappings(
-                //typeof(IndexViewModel).Assembly
-            );
+                typeof(ReservationRoomBindingModel).Assembly);
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -53,8 +53,6 @@
                     }).AddEntityFrameworkStores<BookingDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            //services.AddAutoMapper();
 
             // Data repositories
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));

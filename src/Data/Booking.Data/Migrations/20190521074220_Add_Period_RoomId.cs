@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Booking.Data.Migrations
+﻿namespace Booking.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class Add_Period_RoomId : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
