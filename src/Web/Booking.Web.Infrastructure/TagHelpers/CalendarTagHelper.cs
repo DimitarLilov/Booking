@@ -116,7 +116,7 @@
 
         private XAttribute GetAvaiavleClasses(DateTime d)
         {
-            if (d < DateTime.Now)
+            if (d.Date < DateTime.Now.Date)
             {
                 return new XAttribute("class", $"day col-lg p-2 isDisabled border bg-success");
             }
