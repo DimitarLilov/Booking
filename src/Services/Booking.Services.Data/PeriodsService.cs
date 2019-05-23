@@ -21,6 +21,11 @@
             this.periodsRepository = periodsRepository;
         }
 
+        public bool ContainsThisPeriod(int roomId, DateTime startDate, DateTime endDate)
+        {
+            return this.GetPeriodsByRoomId(roomId).Any(p => startDate.Date >= p.StartDate.Date && startDate.Date <= p.EndDate.Date || endDate.Date >= p.StartDate.Date && endDate.Date <= p.EndDate.Date);
+        }
+
         public async Task CreatePeriodAsync(CreatePeriodBindingModel bindingModel)
         {
             var period = Mapper.Map<Period>(bindingModel);

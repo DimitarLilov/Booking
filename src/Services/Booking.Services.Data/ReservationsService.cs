@@ -33,9 +33,9 @@
                 .To<ReservaionDateViewModel>().ToList();
         }
 
-        public IEnumerable<ReservationDetailsViewModel> GetReservationsDetailsByRoomId(int roomId)
+        public IEnumerable<ReservationDetailsViewModel> GetReservationsDetailsByPeriodsAndRoomId(DateTime start, DateTime end, int roomId)
         {
-            return this.GetByRoomId(roomId).To<ReservationDetailsViewModel>().ToList();
+            return this.GetByRoomId(roomId).Where(r => r.ReservationDate.Date >= start.Date && r.ReservationDate <= end.Date).To<ReservationDetailsViewModel>().ToList();
         }
 
         public async Task ReservationRoom(ReservationRoomBindingModel bindingModel, string userId)

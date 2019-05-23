@@ -15,6 +15,6 @@
 
         Task ReservationRoom(ReservationRoomBindingModel bindingModel, string userId);
 
-        IEnumerable<ReservationDetailsViewModel> GetReservationsDetailsByRoomId(int roomId);
+        IEnumerable<ReservationDetailsViewModel> GetReservationsDetailsByPeriodsAndRoomId(DateTime start, DateTime end, int roomId);
     }
 }

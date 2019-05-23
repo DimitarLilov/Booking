@@ -81,9 +81,13 @@
         {
             if (ModelState.IsValid)
             {
-                await this.periodsService.CreatePeriodAsync(bindingModel);
+                if (!this.periodsService.ContainsThisPeriod(bindingModel.RoomId, bindingModel.StartDate, bindingModel.EndDate))
+                {
+                    await this.periodsService.CreatePeriodAsync(bindingModel);
+
+                    return this.RedirectToAction("Periods", new { id = bindingModel.RoomId });
+                }
                 
-                return this.RedirectToAction("Periods", new { id = bindingModel.RoomId});
             }
 
             var viewModel = new CreatePeriodViewModel

@@ -50,7 +50,7 @@
             var viewModel = new PeriodDetailsViewModel
             {
                 Period = period,
-                Reservations = this.reservationsService.GetReservationsDetailsByRoomId(period.Room.Id)
+                Reservations = this.reservationsService.GetReservationsDetailsByPeriodsAndRoomId(period.StartDate, period.EndDate, period.Room.Id)
             };
             return this.View(viewModel);
         }

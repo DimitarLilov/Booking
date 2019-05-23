@@ -22,5 +22,7 @@
         PeriodAdminViewModel GetPeriodById(int id);
 
         Task EditPeriod(int id, EditPeriodBindingModel bindingModel);
+
+        bool ContainsThisPeriod(int roomId, DateTime startDate, DateTime endDate);
     }
 }
