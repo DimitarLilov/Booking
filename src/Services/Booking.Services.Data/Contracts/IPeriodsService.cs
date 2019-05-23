@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using Booking.Web.Models.Periods;
 
     public interface IPeriodsService
@@ -13,5 +14,7 @@
         bool RoomIsAvailable(int roomId, DateTime date);
 
         decimal GetPriceByPeriod(DateTime date);
+
+        Task CreatePeriodAsync(CreatePeriodBindingModel bindingModel);
     }
 }

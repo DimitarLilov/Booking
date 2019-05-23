@@ -1,0 +1,43 @@
+﻿@using Booking.Web.Models.Rooms;
+@model RoomPeriodsViewModel
+
+@{
+    ViewData["Title"] = "Periods";
+}
+
+<h1>Periods</h1>
+
+<p>
+    <a asp-action="CreatePeriod" asp-controller="Rooms" asp-area="Administration" asp-route-id="@Model.Id">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Price
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var period in Model.Periods) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => period.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => period.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => period.EndDate)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

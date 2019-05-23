@@ -1,0 +1,94 @@
+﻿@model Booking.Web.Models.Rooms.RoomAdminDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Room Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Floor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Floor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.HotelName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.HotelName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <h4>
+        <a asp-action="Periods" asp-controller="Rooms" asp-area="Administration" asp-route-id="@Model.Id">Periods</a>
+        <a asp-action="CreatePeriod" asp-controller="Rooms" asp-area="Administration" asp-route-id="@Model.Id" class="btn btn-success">Add Periods</a>
+    </h4>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Price
+            </th>
+            <th>
+                Start Date
+            </th>
+            <th>
+                End Date
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var period in Model.Periods)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => period.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => period.StartDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => period.EndDate)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h4>Reservation</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Date
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model.Reservations)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => reservation.ReservationDate)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,15 +1,14 @@
 ﻿namespace Booking.Services.Data
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Threading.Tasks;
-    using AutoMapper;
+    using System.Linq.Expressions;
     using Booking.Data.Common.Repositories;
     using Booking.Data.Models;
     using Booking.Services.Data.Contracts;
     using Booking.Services.Mapping;
     using Booking.Web.Models.Hotels;
-    using Booking.Web.Models.Rooms;
 
     public class HotelsService : IHotelsService
     {
@@ -22,7 +21,7 @@
 
         public bool ContainsFloor(int id, int floor)
         {
-            var hotel = this.GetHotelById(id);
+            var hotel = this.GetHotelQyerById(id).FirstOrDefault();
             if (floor > hotel.Floors || floor <= 0)
             {
                 return false;
@@ -33,39 +32,71 @@
 
         public IEnumerable<HotelIdAndNameViewModel> GetAll()
         {
-            var hotels = this.hotelsRepository.All()
-                .To<HotelIdAndNameViewModel>().ToList();
-
-            return hotels;
+            return this.GetHotelsInfo().To<HotelIdAndNameViewModel>().ToList();
         }
 
         public IEnumerable<HotelViewModel> GetAllHotelsInfo()
         {
-            return this.hotelsRepository.All().To<HotelViewModel>().ToList();
+            return this.GetHotelsInfo().To<HotelViewModel>().ToList();
         }
 
         public HotelViewModel GetHotelById(int id)
         {
-            return this.hotelsRepository.All().Where(h => h.Id == id).To<HotelViewModel>().FirstOrDefault();
+            return this.GetHotelQyerById(id).To<HotelViewModel>().FirstOrDefault();
         }
 
         public HotelIdAndNameViewModel GetHotelByRoomId(int id)
         {
-            return this.hotelsRepository.All().Where(h => h.Rooms.Any(r => r.Id == id)).To<HotelIdAndNameViewModel>().FirstOrDefault();
+            return this.GetHotelsInfo(h => h.Rooms.Any(r => r.Id == id)).To<HotelIdAndNameViewModel>().FirstOrDefault();
         }
 
         public HotelDetailsViewModel GetHotelDetails(int id)
         {
-            return this.hotelsRepository.All().Where(h => h.Id == id).To<HotelDetailsViewModel>().FirstOrDefault();
+            return this.GetHotelQyerById(id).To<HotelDetailsViewModel>().FirstOrDefault();
         }
 
         public HotelFloorRoomsViewModel GetRoomByHotelIdAndFloor(int hotelId, int floor)
         {
-            var hotel = this.hotelsRepository.All().Where(h => h.Id == hotelId).To<HotelFloorRoomsViewModel>().FirstOrDefault();
+            var hotel = this.GetHotelQyerById(hotelId).To<HotelFloorRoomsViewModel>().FirstOrDefault();
             hotel.Rooms = hotel.Rooms.Where(r => r.Floor == floor).ToList();
             hotel.Floor = floor;
 
             return hotel;
+        }
+
+        private IQueryable<Hotel> GetHotelQyerById(int id)
+        {
+            return this.GetHotelsInfo(h => h.Id == id);
+        }
+
+        private IQueryable<Hotel> GetHotelsInfo(
+            Expression<Func<Hotel, bool>> predicate = null,
+            Expression<Func<Hotel, object>> orderBySelector = null,
+            int? skip = null,
+            int? take = null)
+        {
+            IQueryable<Hotel> songsQuery = this.hotelsRepository.All();
+            if (predicate != null)
+            {
+                songsQuery = songsQuery.Where(predicate);
+            }
+
+            if (orderBySelector != null)
+            {
+                songsQuery = songsQuery.OrderBy(orderBySelector);
+            }
+
+            if (skip != null)
+            {
+                songsQuery = songsQuery.Skip(skip.Value);
+            }
+
+            if (take != null)
+            {
+                songsQuery = songsQuery.Take(take.Value);
+            }
+
+            return songsQuery;
         }
     }
 }

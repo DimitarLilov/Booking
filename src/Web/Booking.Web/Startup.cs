@@ -34,7 +34,12 @@
         {
             AutoMapperConfig.RegisterMappings(
                 typeof(ReservationRoomBindingModel).Assembly,
-                typeof(CreateRoomBindingModel).Assembly);
+                typeof(CreateRoomBindingModel).Assembly,
+                typeof(EditRoomBindingModel).Assembly,
+                typeof(ReservaionDateViewModel).Assembly,
+                typeof(Period).Assembly,
+                typeof(Room).Assembly);
+            
 
             services.Configure<CookiePolicyOptions>(options =>
             {

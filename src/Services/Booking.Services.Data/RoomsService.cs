@@ -1,6 +1,9 @@
 ﻿namespace Booking.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System.Threading.Tasks;
     using AutoMapper;
     using Booking.Data.Common.Repositories;
@@ -20,7 +23,7 @@
 
         public RoomViewModel GetRoomByRoomId(int id)
         {
-            return this.roomsRepository.All().Where(r => r.Id == id).To<RoomViewModel>().FirstOrDefault();
+            return this.GetRoomById(id).To<RoomViewModel>().FirstOrDefault();
         }
 
         public async Task CreateRoomAsync(int hotelId, CreateRoomBindingModel bindingModel)
@@ -29,6 +32,70 @@
             await this.roomsRepository.AddAsync(room);
             await this.roomsRepository.SaveChangesAsync();
 
+        }
+
+        public RoomPeriodsViewModel GetRoomPeriods(int id)
+        {
+            return this.GetRoomById(id).To<RoomPeriodsViewModel>().FirstOrDefault();
+        }
+
+        public IEnumerable<RoomAdminViewModel> GetAllRooms()
+        {
+            return this.GetRoomsInfo().To<RoomAdminViewModel>().ToList();
+        }
+
+        public EditRoomViewModel GetEditRoom(int id)
+        {
+            return this.GetRoomById(id).To<EditRoomViewModel>().FirstOrDefault();
+        }
+
+        public async Task EditRoom(int id, EditRoomBindingModel bindingModel)
+        {
+
+            Room editRoom = this.GetRoomById(id).FirstOrDefault();
+            editRoom.Name = bindingModel.Name;
+
+            await this.roomsRepository.SaveChangesAsync();
+        }
+
+        public RoomAdminDetailsViewModel GetRoomDetails(int id)
+        {
+            return this.GetRoomById(id).To<RoomAdminDetailsViewModel>().FirstOrDefault();
+        }
+
+        private IQueryable<Room> GetRoomById(int id)
+        {
+            return this.GetRoomsInfo(r => r.Id == id);
+        }
+
+        private IQueryable<Room> GetRoomsInfo(
+            Expression<Func<Room, bool>> predicate = null,
+            Expression<Func<Room, object>> orderBySelector = null,
+            int? skip = null,
+            int? take = null)
+        {
+            IQueryable<Room> songsQuery = this.roomsRepository.All();
+            if (predicate != null)
+            {
+                songsQuery = songsQuery.Where(predicate);
+            }
+
+            if (orderBySelector != null)
+            {
+                songsQuery = songsQuery.OrderBy(orderBySelector);
+            }
+
+            if (skip != null)
+            {
+                songsQuery = songsQuery.Skip(skip.Value);
+            }
+
+            if (take != null)
+            {
+                songsQuery = songsQuery.Take(take.Value);
+            }
+
+            return songsQuery;
         }
     }
 }

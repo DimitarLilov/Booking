@@ -82,7 +82,7 @@
                 return this.RedirectToAction("Reserved", new { id, query.Date });
             }
 
-            if (!this.periodsServices.RoomIsAvailable(id, query.Date) || query.Date < DateTime.Now)
+            if (!this.periodsServices.RoomIsAvailable(id, query.Date) || query.Date < DateTime.Now.Date)
             {
                 return this.RedirectToAction("NotAvailable");
             }
