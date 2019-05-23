@@ -1,0 +1,56 @@
+﻿@using Booking.Web.Models.Periods
+@model IEnumerable<PeriodAdminViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Periods</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Room
+            </th>
+            <th>
+                Floor
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var period in Model) {
+        <tr>
+            <td>
+                <a asp-action="Details" asp-controller="Rooms" asp-area="Administration" asp-route-id="@period.Room.Id">@period.Room.Name</a>
+            </td>
+            <td>
+                @period.Room.Floor
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => period.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => period.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => period.EndDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id= period.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = period.Id })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

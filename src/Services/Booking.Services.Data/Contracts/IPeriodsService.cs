@@ -16,5 +16,11 @@
         decimal GetPriceByPeriod(DateTime date);
 
         Task CreatePeriodAsync(CreatePeriodBindingModel bindingModel);
+
+        IEnumerable<PeriodAdminViewModel> GetAllPeriods();
+
+        PeriodAdminViewModel GetPeriodById(int id);
+
+        Task EditPeriod(int id, EditPeriodBindingModel bindingModel);
     }
 }

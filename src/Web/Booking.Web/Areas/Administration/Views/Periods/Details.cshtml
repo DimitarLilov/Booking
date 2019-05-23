@@ -1,0 +1,81 @@
+﻿@model Booking.Web.Models.Periods.PeriodDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Period Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Room @Html.DisplayNameFor(model => model.Period.Room.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Period.Room.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Period.Room.Floor)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Period.Room.Floor)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Period.StartDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Period.StartDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Period.EndDate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Period.EndDate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Period.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Period.Price)
+        </dd>
+    </dl>
+</div>
+<h4>Reservation</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                User
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Price
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var reservation in Model.Reservations)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => reservation.User.FirstName)  @Html.DisplayFor(modelItem => reservation.User.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => reservation.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.Period.Price)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Period.Id  }) |
+    <a asp-action="Index">Back to List</a>
+</div>

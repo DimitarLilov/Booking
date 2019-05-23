@@ -28,6 +28,26 @@
             await this.periodsRepository.SaveChangesAsync();
         }
 
+        public async Task EditPeriod(int id, EditPeriodBindingModel bindingModel)
+        {
+            Period period = this.GetPeriodsInfo(p => p.Id == id).FirstOrDefault();
+            period.Price = bindingModel.Price;
+            period.StartDate = bindingModel.StartDate;
+            period.EndDate = bindingModel.EndDate;
+
+            await this.periodsRepository.SaveChangesAsync();
+        }
+
+        public IEnumerable<PeriodAdminViewModel> GetAllPeriods()
+        {
+            return this.GetPeriodsInfo().To<PeriodAdminViewModel>().ToList();
+        }
+
+        public PeriodAdminViewModel GetPeriodById(int id)
+        {
+            return this.GetPeriodsInfo(p => p.Id == id).To<PeriodAdminViewModel>().FirstOrDefault();
+        }
+
         public IEnumerable<PeriodViewModel> GetPeriodsByRoomId(int id)
         {
             return this.GetByRoomId(id).To<PeriodViewModel>().ToList();

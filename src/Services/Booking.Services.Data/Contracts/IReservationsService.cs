@@ -14,5 +14,7 @@
         bool RoomIsReserved(int id, DateTime date);
 
         Task ReservationRoom(ReservationRoomBindingModel bindingModel, string userId);
+
+        IEnumerable<ReservationDetailsViewModel> GetReservationsDetailsByRoomId(int roomId);
     }
 }

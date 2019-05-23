@@ -33,6 +33,11 @@
                 .To<ReservaionDateViewModel>().ToList();
         }
 
+        public IEnumerable<ReservationDetailsViewModel> GetReservationsDetailsByRoomId(int roomId)
+        {
+            return this.GetByRoomId(roomId).To<ReservationDetailsViewModel>().ToList();
+        }
+
         public async Task ReservationRoom(ReservationRoomBindingModel bindingModel, string userId)
         {
             var reservation = Mapper.Map<Reservation>(bindingModel);
