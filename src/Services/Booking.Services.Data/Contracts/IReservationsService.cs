@@ -7,7 +7,7 @@
 
     public interface IReservationsService
     {
-        IEnumerable<ReservaionDateViewModel> GetReservationsByRoomId(int id);
+        IEnumerable<ReservationDetailsViewModel> GetReservationsByRoomId(int id);
 
         IEnumerable<ReservaionDateViewModel> GetReservationsByRoomIdFilterByMonthAndYear(int id, int month, int year);
 
@@ -16,5 +16,7 @@
         Task ReservationRoom(ReservationRoomBindingModel bindingModel, string userId);
 
         IEnumerable<ReservationDetailsViewModel> GetReservationsDetailsByPeriodsAndRoomId(DateTime start, DateTime end, int roomId);
+
+        IEnumerable<ReservationDetailsViewModel> GetAllReservation();
     }
 }

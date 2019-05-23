@@ -1,10 +1,10 @@
 ﻿namespace Booking.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
     using Booking.Services.Data.Contracts;
     using Booking.Web.Models.Periods;
     using Booking.Web.Models.Rooms;
     using Microsoft.AspNetCore.Mvc;
-    using System.Threading.Tasks;
 
     public class RoomsController : AdministrationBaseController
     {
@@ -25,14 +25,14 @@
         {
             var viewModel = this.roomsService.GetAllRooms();
 
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
         public IActionResult Edit(int id)
         {
             var viewModel = this.roomsService.GetEditRoom(id);
 
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
         [HttpPost]
@@ -47,14 +47,14 @@
 
             var viewModel = this.roomsService.GetEditRoom(id);
 
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
         public IActionResult Details(int id)
         {
             var viewModel = this.roomsService.GetRoomDetails(id);
             viewModel.Reservations = this.reservationsService.GetReservationsByRoomId(id);
-            return View(viewModel);
+            return this.View(viewModel);
         }
 
 

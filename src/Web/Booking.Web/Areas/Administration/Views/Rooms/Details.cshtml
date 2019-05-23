@@ -48,32 +48,45 @@
             <th>
                 End Date
             </th>
+            <th>
+                Actions
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var period in Model.Periods)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => period.Price)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => period.StartDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => period.EndDate)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => period.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => period.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => period.EndDate)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-controller="Periods" asp-area="Administration" asp-route-id="@period.Id" class="btn btn-success">Edit</a> 
+                <a asp-action="Details" asp-controller="Periods" asp-area="Administration" asp-route-id="@period.Id" class="btn btn-primary">Details</a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
 
-<h4>Reservation</h4>
+<h4>Reservations</h4>
 <table class="table">
     <thead>
         <tr>
             <th>
+                User
+            </th>
+            <th>
                 Date
+            </th>
+            <th>
+                Price
             </th>
         </tr>
     </thead>
@@ -82,11 +95,26 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => reservation.ReservationDate)
+                    @Html.DisplayFor(modelItem => reservation.User.FirstName) @Html.DisplayFor(modelItem => reservation.User.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => reservation.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => reservation.Price)
                 </td>
             </tr>
         }
     </tbody>
+    <tfoot>
+        <tr>
+            <th>
+                <br />
+            </th>
+            <th class="text-center">Total</th>
+            <th class="text-right">@(Model.Reservations.Sum(r => r.Price))</th>
+        </tr>
+    </tfoot>
 </table>
 <div>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |

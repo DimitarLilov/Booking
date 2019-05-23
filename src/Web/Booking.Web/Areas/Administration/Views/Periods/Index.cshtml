@@ -47,8 +47,8 @@
                 @Html.DisplayFor(modelItem => period.EndDate)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id= period.Id }) |
-                @Html.ActionLink("Details", "Details", new { id = period.Id })
+                <a asp-action="Edit" asp-controller="Periods" asp-area="Administration" asp-route-id="@period.Id" class="btn btn-success">Edit</a>
+                <a asp-action="Details" asp-controller="Periods" asp-area="Administration" asp-route-id="@period.Id" class="btn btn-primary">Details</a>
             </td>
         </tr>
 }

@@ -19,7 +19,7 @@
 
         public IEnumerable<PeriodViewModel> Periods { get; set; }
 
-        public IEnumerable<ReservaionDateViewModel> Reservations { get; set; }
+        public IEnumerable<ReservationDetailsViewModel> Reservations { get; set; }
 
     }
 }

@@ -22,7 +22,7 @@
         {
             var viewModels = this.periodsService.GetAllPeriods();
 
-            return View(viewModels);
+            return this.View(viewModels);
         }
 
         public IActionResult Edit(int id)

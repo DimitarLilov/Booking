@@ -21,9 +21,14 @@
             this.reservationsRepository = reservationsRepository;
         }
 
-        public IEnumerable<ReservaionDateViewModel> GetReservationsByRoomId(int id)
+        public IEnumerable<ReservationDetailsViewModel> GetAllReservation()
         {
-            return this.GetByRoomId(id).To<ReservaionDateViewModel>().ToList();
+            return this.GetReservationsInfo().To<ReservationDetailsViewModel>().ToList();
+        }
+
+        public IEnumerable<ReservationDetailsViewModel> GetReservationsByRoomId(int id)
+        {
+            return this.GetByRoomId(id).To<ReservationDetailsViewModel>().ToList();
         }
 
         public IEnumerable<ReservaionDateViewModel> GetReservationsByRoomIdFilterByMonthAndYear(int id, int month, int year)
