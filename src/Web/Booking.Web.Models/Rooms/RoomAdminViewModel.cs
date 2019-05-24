@@ -1,9 +1,9 @@
-﻿using AutoMapper;
-using Booking.Data.Models;
-using Booking.Services.Mapping.Contracts;
-
-namespace Booking.Web.Models.Rooms
+﻿namespace Booking.Web.Models.Rooms
 {
+    using AutoMapper;
+    using Booking.Data.Models;
+    using Booking.Services.Mapping.Contracts;
+
     public class RoomAdminViewModel : IMapFrom<Room>, IHaveCustomMappings
     {
         public int Id { get; set; }
@@ -17,8 +17,7 @@ namespace Booking.Web.Models.Rooms
         public void CreateMappings(IMapperConfigurationExpression configuration)
         {
             configuration.CreateMap<Room, RoomAdminViewModel>()
-                .ForMember(x => x.Hotel,
-                    m => m.MapFrom(r => r.Hotel.Name));
+                .ForMember(x => x.Hotel, m => m.MapFrom(r => r.Hotel.Name));
         }
     }
 }

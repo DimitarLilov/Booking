@@ -39,7 +39,6 @@
                 typeof(ReservaionDateViewModel).Assembly,
                 typeof(Period).Assembly,
                 typeof(Room).Assembly);
-            
 
             services.Configure<CookiePolicyOptions>(options =>
             {

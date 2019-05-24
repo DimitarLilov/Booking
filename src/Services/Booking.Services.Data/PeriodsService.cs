@@ -23,7 +23,7 @@
 
         public bool ContainsThisPeriod(int roomId, DateTime startDate, DateTime endDate)
         {
-            return this.GetPeriodsByRoomId(roomId).Any(p => startDate.Date >= p.StartDate.Date && startDate.Date <= p.EndDate.Date || endDate.Date >= p.StartDate.Date && endDate.Date <= p.EndDate.Date);
+            return this.GetPeriodsByRoomId(roomId).Any(p => (startDate.Date >= p.StartDate.Date && startDate.Date <= p.EndDate.Date) || (endDate.Date >= p.StartDate.Date && endDate.Date <= p.EndDate.Date));
         }
 
         public async Task CreatePeriodAsync(CreatePeriodBindingModel bindingModel)
@@ -87,28 +87,28 @@
             int? skip = null,
             int? take = null)
         {
-            IQueryable<Period> songsQuery = this.periodsRepository.All();
+            IQueryable<Period> periodsQuery = this.periodsRepository.All();
             if (predicate != null)
             {
-                songsQuery = songsQuery.Where(predicate);
+                periodsQuery = periodsQuery.Where(predicate);
             }
 
             if (orderBySelector != null)
             {
-                songsQuery = songsQuery.OrderBy(orderBySelector);
+                periodsQuery = periodsQuery.OrderBy(orderBySelector);
             }
 
             if (skip != null)
             {
-                songsQuery = songsQuery.Skip(skip.Value);
+                periodsQuery = periodsQuery.Skip(skip.Value);
             }
 
             if (take != null)
             {
-                songsQuery = songsQuery.Take(take.Value);
+                periodsQuery = periodsQuery.Take(take.Value);
             }
 
-            return songsQuery;
+            return periodsQuery;
         }
     }
 }

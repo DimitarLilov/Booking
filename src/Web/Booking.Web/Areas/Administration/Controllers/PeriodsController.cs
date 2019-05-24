@@ -1,10 +1,9 @@
 ﻿namespace Booking.Web.Areas.Administration.Controllers
 {
+    using System.Threading.Tasks;
     using Booking.Services.Data.Contracts;
     using Booking.Web.Models.Periods;
     using Microsoft.AspNetCore.Mvc;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
 
     public class PeriodsController : AdministrationBaseController
     {

@@ -57,7 +57,6 @@
             return this.View(viewModel);
         }
 
-
         [HttpGet("Administration/Rooms/{id:int}/Periods")]
         public IActionResult Periods(int id)
         {
@@ -86,8 +85,7 @@
                     await this.periodsService.CreatePeriodAsync(bindingModel);
 
                     return this.RedirectToAction("Periods", new { id = bindingModel.RoomId });
-                }
-                
+                }              
             }
 
             var viewModel = new CreatePeriodViewModel

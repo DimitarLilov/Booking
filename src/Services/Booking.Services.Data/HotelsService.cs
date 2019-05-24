@@ -75,28 +75,28 @@
             int? skip = null,
             int? take = null)
         {
-            IQueryable<Hotel> songsQuery = this.hotelsRepository.All();
+            IQueryable<Hotel> hotelsQuery = this.hotelsRepository.All();
             if (predicate != null)
             {
-                songsQuery = songsQuery.Where(predicate);
+                hotelsQuery = hotelsQuery.Where(predicate);
             }
 
             if (orderBySelector != null)
             {
-                songsQuery = songsQuery.OrderBy(orderBySelector);
+                hotelsQuery = hotelsQuery.OrderBy(orderBySelector);
             }
 
             if (skip != null)
             {
-                songsQuery = songsQuery.Skip(skip.Value);
+                hotelsQuery = hotelsQuery.Skip(skip.Value);
             }
 
             if (take != null)
             {
-                songsQuery = songsQuery.Take(take.Value);
+                hotelsQuery = hotelsQuery.Take(take.Value);
             }
 
-            return songsQuery;
+            return hotelsQuery;
         }
     }
 }

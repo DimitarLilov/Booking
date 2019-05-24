@@ -48,7 +48,7 @@
             if (this.ModelState.IsValid)
             {
                 await this.roomsService.CreateRoomAsync(id, bindingModel);
-                return this.RedirectToAction(nameof(Details), new { id});
+                return this.RedirectToAction(nameof(this.Details), new { id });
             }
 
             var viewMode = this.hotelsServices.GetHotelById(id);

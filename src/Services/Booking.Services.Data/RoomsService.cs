@@ -31,7 +31,6 @@
             var room = Mapper.Map<Room>(bindingModel);
             await this.roomsRepository.AddAsync(room);
             await this.roomsRepository.SaveChangesAsync();
-
         }
 
         public RoomPeriodsViewModel GetRoomPeriods(int id)
@@ -51,7 +50,6 @@
 
         public async Task EditRoom(int id, EditRoomBindingModel bindingModel)
         {
-
             Room editRoom = this.GetRoomById(id).FirstOrDefault();
             editRoom.Name = bindingModel.Name;
 
@@ -74,28 +72,28 @@
             int? skip = null,
             int? take = null)
         {
-            IQueryable<Room> songsQuery = this.roomsRepository.All();
+            IQueryable<Room> roomsQuery = this.roomsRepository.All();
             if (predicate != null)
             {
-                songsQuery = songsQuery.Where(predicate);
+                roomsQuery = roomsQuery.Where(predicate);
             }
 
             if (orderBySelector != null)
             {
-                songsQuery = songsQuery.OrderBy(orderBySelector);
+                roomsQuery = roomsQuery.OrderBy(orderBySelector);
             }
 
             if (skip != null)
             {
-                songsQuery = songsQuery.Skip(skip.Value);
+                roomsQuery = roomsQuery.Skip(skip.Value);
             }
 
             if (take != null)
             {
-                songsQuery = songsQuery.Take(take.Value);
+                roomsQuery = roomsQuery.Take(take.Value);
             }
 
-            return songsQuery;
+            return roomsQuery;
         }
     }
 }
